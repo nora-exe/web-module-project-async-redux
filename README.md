@@ -11,7 +11,7 @@ Once you have chosen an API to consume, build an app that makes sense for the da
 ## Vercel
 @ https://nora-exe-redux-test.vercel.app/
 
-![Preview](app\public\seacrits-1.png)
+![Preview](https://github.com/nora-exe/web-module-project-async-redux/blob/nora-corser-flex/app/public/seacrits-1.png?raw=true)
 
 # Notes
 
