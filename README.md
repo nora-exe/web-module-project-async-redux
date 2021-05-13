@@ -6,47 +6,84 @@ This project allows you to practice the concepts and techniques learned in this 
 
 This is the chance to let your skills shine! You have learned _sooo_ much the last month, and now you get to put all of your hard-earned skills to work. Choose an open api ([this list](https://github.com/public-apis/public-apis) has a lot of great ones - look for ones with `Auth: no` and `HTTPS: yes` - or just do a google search for `open apis`). Protip - don't take too long choosing an API. Pick one that looks interesting, and get building.
 
-Once you have chosen an API to consume, build an app that makes sense for the data you will be retrieving. Have fun with this. You get to be the creative mind. You get to make all the decisions here. I'm excited to see what you build!
+Once you have chosen an API to consume, build an app that makes sense for the data you will be retrieving.
 
-**Read these instructions carefully. Understand exactly what is expected _before_ starting this project.**
+## Vercel
+@ https://nora-exe-redux-test.vercel.app/
 
-### Commits
+![Preview](app\build\seacrits-1.png)
 
-Commit your code regularly and meaningfully. This helps both you and your team lead in case you ever need to return to old code for any number of reasons.
+# Notes
 
-### Description
+## Links
+* GP 🎥 https://youtu.be/KHDQHSsdnrw
+* MP 🎥 _______________________________
 
-In this project you'll choose an api to consume. You will build an application from scratch that uses your chosen API and displays the data you are getting from it.
+## Key Concepts
+*  [Finite State Machine](https://www.youtube.com/watch?v=I0HBrcE_HOI) - A mathematical model used to map the states and transitions between states in a given system.
+*  [middleware](https://redux.js.org/understanding/history-and-design/middleware) - Code that can be injected into a larger applications process.
 
-## Instructions
+## Key Terminology
+*  [redux middleware](https://designingforscale.com/understanding-redux-middleware-and-writing-custom-ones/) - Code that can be injected into specifically into the redux flow.
+*  [redux-thunk](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60) - A redux middleware package that allows for functional action creators and mulitple calls to dispatch
+*  [Alan Turing](https://www.youtube.com/watch?v=dNRDvLACg5Q) - English Mathematician, computer scientist and cryptanalyst that is credited with creating the mathamatical basis of computer science.
 
-### Task 1: Project Set Up
+# Review
+## Finite State & Redux
+A machine can have a finite number of states, but it can only operate in one state at a given time. For example:
+* initial state (store).
+* current state (store).
+* inputs or actions (action creators) that trigger transitions (reducers) to the next state.
 
-- [ ] Create a forked copy of this project.
-- [ ] Add your team lead as collaborator on Github.
-- [ ] Clone your OWN version of the repository in your terminal.
-- [ ] CD into the project base directory `cd React-Redux-App`.
-- [ ] Run `npx create-react-app app --use-npm` to make a CRA app.
-- [ ] CD into the react app `cd app`.
-- [ ] Start up the app using `npm start`.
-- [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-- [ ] Push commits: git push origin `<firstName-lastName>`.
+Another example is a door. The states and actions would be:
 
-### Task 2: Minimum Viable Product
+| current state	| action (input)| new state |
+|:--------------|:-------------:|----------:|
+| locked closed | `unlock` | unlocked closed |
+| unlocked closed | `lock` | locked closed |
+| unlocked closed | `open` | unlocked open |
+| locked open | `close` | locked closed |
+| unlocked open | `lock` | locked open |
+| locked open	| `unlock`	| unlocked open |
 
-- [ ] Build a React Redux app
-- [ ] Fetch data inside an async action creator from an API of your choosing
-- [ ] Add the data from the API to the Redux store
-- [ ] Display the data from the store in a component
-- [ ] _Some_ styling must be applied. It can be basic, but the app must not only use browser default stylings
+## Middleware
+**Middleware** intercepts a process, runs a function at the intercept point, then (usually) continues the process. Sometimes middleware stops the process entirely. Middleware intercepts every action **before** it flows through to the Reducers.
 
-### Task 3: Stretch Problems
+Middleware can:
+* stop actions.
+* forward an action untouched.
+* dispatch a different action.
+* dispatch multiple actions.
 
-Take the app as far as you can go! Styling, redux hooks, another API, an input to fetch data dynamically, etc. Work on it, improve it until the end of the day. If you find yourself finishing with time left to spare, jump on with your TL or fellow student to ask them what feature they think you should build next. Good luck!
+Add the dependency with `npm install redux-logger`. Get started with
+```javascript
+import { applyMiddleware, createStore } from 'redux';
+import logger from 'redux-logger';
 
-## Submission Format
-* [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
+const store = createStore(
+  reducer,
+  applyMiddleware(logger)
+);
+```
 
-## Deploy to Vercel
-https://nora-exe-redux-test.vercel.app/
+## 'Thunk,' async action creators, and external API
+Redux Thunk is a separate node package called `redux-thunk`. Redux thunk can make the action-reducer flow asynchronous and make API calls from action creators.
+* Note: a `thunk` is a special name for a function that's returned by another function.
+
+When an action creator is called `redux-thunk` intercepts and acts on returned data. If the thing returned is an action, it forwards the action through to the reducer. If the thing returned is a function, AKA a thunk (a function returned from a function), then it invokes the thunk and passes the `dispatch` function as an argument to it. So we can run an async function, like an API call, and inside `.then()` we can dispatch an action.
+
+```javascript
+const logInUser = creds => dispatch => {
+  return axios.post('/login', creds).then(res => {
+    const loggedInAction = { type: USER_LOGGED_IN, payload: res.data.user }
+    dispatch(loggedInAction);
+  });
+}
+```
+For setup, add `redux-thunk` as a dependency, `import thunk from 'redux-thunk';` in the main `index.js` page, and pass it into middleware with
+```javascript
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
+```
