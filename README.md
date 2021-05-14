@@ -8,16 +8,22 @@ This is the chance to let your skills shine! You have learned _sooo_ much the la
 
 Once you have chosen an API to consume, build an app that makes sense for the data you will be retrieving.
 
-## Vercel
-@ https://nora-exe-redux-test.vercel.app/
+## API:
+Animal Crossing New Horizons
 
-![Preview](https://github.com/nora-exe/web-module-project-async-redux/blob/nora-corser-flex/app/public/seacrits-1.png?raw=true)
+![Alright then, keep your seacrits](keep-your-seacrits.jpeg)
+
+## Vercel Preview
+On Vercel @ https://nora-exe-redux-test.vercel.app/
+
+![Preview](seacrits-1.png)
+
 
 # Notes
 
 ## Links
-* GP 🎥 https://youtu.be/KHDQHSsdnrw
-* MP 🎥 _______________________________
+* [🎥 GP ](https://youtu.be/KHDQHSsdnrw)
+* [🎥 MP ](https://www.loom.com/share/e27acd4a457b4f5199c7a56d73c3ac91)
 
 ## Key Concepts
 *  [Finite State Machine](https://www.youtube.com/watch?v=I0HBrcE_HOI) - A mathematical model used to map the states and transitions between states in a given system.
